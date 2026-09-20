@@ -48,7 +48,5 @@ button {
 .equal {
     background-color: #db7269;
     padding: 20px;
-    margin-left: auto;
-    width: 25%;
-
+    flex: 1;
 }
