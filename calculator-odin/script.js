@@ -22,3 +22,16 @@ const operate = function(operator, num1, num2) {
             return num1 % num2 === 0 ? divide(num1, num2) : divide(num1, num2).toFixed(2);
     }
 }
+
+const numbers = document.querySelectorAll(".number");
+const operators = document.querySelectorAll(".operator");
+const equal = document.querySelector(".equal");
+const clear = document.querySelector(".clear");
+const display = document.querySelector("#display");
+
+const clearDisplay = () => {display.textContent = "0"};
+const getButtonValue = (e) => console.log(e.currentTarget.textContent);
+
+numbers.forEach(number => number.addEventListener("click", getButtonValue));
+operators.forEach(operator => operator.addEventListener("click", getButtonValue))
+equal.addEventListener("click", getButtonValue);
