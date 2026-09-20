@@ -4,7 +4,7 @@ h1 {
 }
 
 .calculator {
-    width: 360px;
+    width: 400px;
     padding: 20px;
     border: 1px solid black;
     border-radius: 10px;
@@ -20,10 +20,15 @@ h1 {
     padding: 15px;
     text-align: right;
     background-color: white;
+    font-size: 30px;
 }
 
 button {
     border-radius: 10px;
+    padding: 20px;
+    width: 25%;
+    font-size: 30px;
+    font-weight: bold;
 }
 
 .col {
@@ -35,18 +40,13 @@ button {
 
 .number {
     background-color: white;
-    padding: 20px;
-    width: 25%;
 }
 
 .operator {
     background-color: #ffcc00;
-    padding: 20px;
-    width: 25%;
 }
 
 .equal {
     background-color: #db7269;
-    padding: 20px;
     flex: 1;
 }
