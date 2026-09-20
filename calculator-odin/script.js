@@ -29,9 +29,16 @@ const equal = document.querySelector(".equal");
 const clear = document.querySelector(".clear");
 const display = document.querySelector("#display");
 
-const clearDisplay = () => {display.textContent = "0"};
+const clearDisplay = () => {
+    display.textContent = "0"
+    num1 = undefined;
+    num2 = undefined;
+    operator = undefined;
+};
+
 const getButtonValue = (e) => console.log(e.currentTarget.textContent);
 
 numbers.forEach(number => number.addEventListener("click", getButtonValue));
 operators.forEach(operator => operator.addEventListener("click", getButtonValue))
 equal.addEventListener("click", getButtonValue);
+clear.addEventListener("click", clearDisplay);
