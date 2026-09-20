@@ -2,3 +2,53 @@ h1 {
     display: flex;
     justify-content: center;
 }
+
+.calculator {
+    width: 360px;
+    padding: 20px;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 30px auto;
+    background-color: #f0f0f0;
+    display: flex;
+    flex-direction: column;
+}
+
+#display {
+    border: 1px solid grey;
+    border-radius: 5px;
+    padding: 15px;
+    text-align: right;
+    background-color: white;
+}
+
+button {
+    border-radius: 10px;
+}
+
+.col {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+    margin: 5px 0;
+}
+
+.number {
+    background-color: white;
+    padding: 20px;
+    width: 25%;
+}
+
+.operator {
+    background-color: #ffcc00;
+    padding: 20px;
+    width: 25%;
+}
+
+.equal {
+    background-color: #db7269;
+    padding: 20px;
+    margin-left: auto;
+    width: 25%;
+
+}
