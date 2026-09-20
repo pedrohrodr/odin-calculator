@@ -16,6 +16,9 @@ const operate = function(operator, num1, num2) {
         case "x":
             return multiply(num1, num2);
         case "÷":
+            if (num2 === 0) {
+                return alert("You cannot divide by zero!")
+            }
             return num1 % num2 === 0 ? divide(num1, num2) : divide(num1, num2).toFixed(2);
     }
 }
