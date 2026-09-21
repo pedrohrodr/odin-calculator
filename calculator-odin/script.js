@@ -1,5 +1,5 @@
-const add = (a, b) => a + b;
-const subtract = (a, b) => a - b;
+const add = (a, b) => Number(a) + Number(b);
+const subtract = (a, b) => Number(a) - Number(b);
 const multiply = (a, b) => a * b;
 const divide = (a, b) => a / b;
 
@@ -13,13 +13,14 @@ const operate = function(operator, num1, num2) {
             return add(num1, num2);
         case "-":
             return subtract(num1, num2);
-        case "x":
+        case "×":
             return multiply(num1, num2);
         case "÷":
-            if (num2 === 0) {
-                return alert("You cannot divide by zero!")
+            if (num2 === "0") {
+                alert("You cannot divide by zero!")
+                return "Enter a number"
             }
-            return num1 % num2 === 0 ? divide(num1, num2) : divide(num1, num2).toFixed(2);
+            return num1 % num2 === 0 ? divide(num1, num2) : divide(num1, num2).toFixed(6);
     }
 }
 
@@ -28,17 +29,56 @@ const operators = document.querySelectorAll(".operator");
 const equal = document.querySelector(".equal");
 const clear = document.querySelector(".clear");
 const display = document.querySelector("#display");
+const backspace = document.querySelector(".backspace");
+
+const backspaceAction = () => {
+    const displayText = display.textContent;
+    if (displayText !== "Enter a number") {
+        if (displayText.length === 1) {
+            display.textContent = "0"
+        }
+        else {
+            display.textContent = displayText.slice(0, -1);
+        }
+    }
+};
 
 const clearDisplay = () => {
-    display.textContent = "0"
+    display.textContent = "0";
     num1 = undefined;
     num2 = undefined;
     operator = undefined;
 };
 
-const getButtonValue = (e) => console.log(e.currentTarget.textContent);
+const updateDisplay = (e) => {
+    const buttonValue = e.currentTarget.textContent;
+    if (display.textContent === "Enter a number" || display.textContent === "0") {
+        display.textContent = "";
+    }
+    display.append(buttonValue);
+};
 
-numbers.forEach(number => number.addEventListener("click", getButtonValue));
-operators.forEach(operator => operator.addEventListener("click", getButtonValue))
-equal.addEventListener("click", getButtonValue);
+const getOperator = (e) => {
+    if (display.textContent !== "Enter a number" || display.textContent === "") {
+        num1 = display.textContent;
+    }
+    operator = e.currentTarget.textContent;
+    display.textContent = "0"
+}
+
+const equalFunction = () => {
+    if (num1 !== undefined) {
+        if (display.textContent === "Enter a number" || display.textContent === "") {
+            alert("Enter the second number first!");
+        }
+        num2 = display.textContent;
+        const result = operate(operator, num1, num2);
+        display.textContent = result;
+    }
+};
+
+numbers.forEach(number => number.addEventListener("click", updateDisplay));
+operators.forEach(operator => operator.addEventListener("click", getOperator));
 clear.addEventListener("click", clearDisplay);
+equal.addEventListener("click", equalFunction);
+backspace.addEventListener("click", backspaceAction);
