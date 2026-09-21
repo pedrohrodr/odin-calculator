@@ -33,6 +33,7 @@ const clear = document.querySelector(".clear");
 const display = document.querySelector("#display");
 const backspace = document.querySelector(".backspace");
 const decimalPoint = document.querySelector(".decimalPoint");
+const plusOrMinus = document.querySelector(".plusOrMinus");
 
 display.textContent = displayDefaultText;
 
@@ -63,29 +64,55 @@ const updateDisplay = (e) => {
     display.append(buttonValue);
 };
 
-const getOperator = (e) => {
-    if (display.textContent !== displayDefaultText || display.textContent === "") {
-        num1 = display.textContent;
-    }
-    operator = e.currentTarget.textContent;
-    display.textContent = "0"
-}
-
 const equalFunction = () => {
     if (num1 !== undefined) {
         if (display.textContent === displayDefaultText || display.textContent === "") {
             alert("Enter the second number first!");
         }
         num2 = display.textContent;
-        const result = operate(operator, num1, num2);
-        display.textContent = result;
+        display.textContent = operate(operator, num1, num2);
     }
 };
+
+const getOperator = (e) => {
+    if (display.textContent !== displayDefaultText || display.textContent === "") {
+        if (num1 === undefined) {
+            num1 = display.textContent;
+            operator = e.currentTarget.textContent;
+            display.textContent = "0"
+        }
+        else {
+            num2 = display.textContent;
+            display.textContent = operate(operator, num1, num2);
+            num1 = display.textContent;
+            num2 = undefined;
+            const clearDisplayAfterNumber = (e) => {
+                display.textContent = "";
+                display.append(e.currentTarget.textContent);
+                numbers.forEach(number => number.removeEventListener("click", clearDisplayAfterNumber));
+            }
+            numbers.forEach(number => number.addEventListener("click", clearDisplayAfterNumber));
+            operator = e.currentTarget.textContent;
+        }
+    }
+}
 
 const addDecimalPoint = () => {
     if (display.textContent.indexOf(".") === -1 && display.textContent !== displayDefaultText) {
         const text = display.textContent
         display.textContent = text.concat(".");
+    }
+}
+
+const addPlusOrMinus = () => {
+    if (display.textContent !== displayDefaultText) {
+        const text = display.textContent;
+        if (display.textContent.indexOf("-") === -1) {
+            display.textContent = "-".concat(text);
+        }
+        else {
+            display.textContent = text.slice(1);
+        }
     }
 }
 
@@ -95,3 +122,4 @@ clear.addEventListener("click", clearDisplay);
 equal.addEventListener("click", equalFunction);
 backspace.addEventListener("click", backspaceAction);
 decimalPoint.addEventListener("click", addDecimalPoint);
+plusOrMinus.addEventListener("click", addPlusOrMinus);
