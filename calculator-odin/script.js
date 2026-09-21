@@ -3,6 +3,8 @@ const subtract = (a, b) => Number(a) - Number(b);
 const multiply = (a, b) => a * b;
 const divide = (a, b) => a / b;
 
+displayDefaultText = "Enter a number";
+
 let num1;
 let num2;
 let operator;
@@ -18,7 +20,7 @@ const operate = function(operator, num1, num2) {
         case "÷":
             if (num2 === "0") {
                 alert("You cannot divide by zero!")
-                return "Enter a number"
+                return displayDefaultText
             }
             return num1 % num2 === 0 ? divide(num1, num2) : divide(num1, num2).toFixed(6);
     }
@@ -30,10 +32,13 @@ const equal = document.querySelector(".equal");
 const clear = document.querySelector(".clear");
 const display = document.querySelector("#display");
 const backspace = document.querySelector(".backspace");
+const decimalPoint = document.querySelector(".decimalPoint");
+
+display.textContent = displayDefaultText;
 
 const backspaceAction = () => {
     const displayText = display.textContent;
-    if (displayText !== "Enter a number") {
+    if (displayText !== displayDefaultText) {
         if (displayText.length === 1) {
             display.textContent = "0"
         }
@@ -52,14 +57,14 @@ const clearDisplay = () => {
 
 const updateDisplay = (e) => {
     const buttonValue = e.currentTarget.textContent;
-    if (display.textContent === "Enter a number" || display.textContent === "0") {
+    if (display.textContent === displayDefaultText || display.textContent === "0") {
         display.textContent = "";
     }
     display.append(buttonValue);
 };
 
 const getOperator = (e) => {
-    if (display.textContent !== "Enter a number" || display.textContent === "") {
+    if (display.textContent !== displayDefaultText || display.textContent === "") {
         num1 = display.textContent;
     }
     operator = e.currentTarget.textContent;
@@ -68,7 +73,7 @@ const getOperator = (e) => {
 
 const equalFunction = () => {
     if (num1 !== undefined) {
-        if (display.textContent === "Enter a number" || display.textContent === "") {
+        if (display.textContent === displayDefaultText || display.textContent === "") {
             alert("Enter the second number first!");
         }
         num2 = display.textContent;
@@ -77,8 +82,16 @@ const equalFunction = () => {
     }
 };
 
+const addDecimalPoint = () => {
+    if (display.textContent.indexOf(".") === -1 && display.textContent !== displayDefaultText) {
+        const text = display.textContent
+        display.textContent = text.concat(".");
+    }
+}
+
 numbers.forEach(number => number.addEventListener("click", updateDisplay));
 operators.forEach(operator => operator.addEventListener("click", getOperator));
 clear.addEventListener("click", clearDisplay);
 equal.addEventListener("click", equalFunction);
 backspace.addEventListener("click", backspaceAction);
+decimalPoint.addEventListener("click", addDecimalPoint);
