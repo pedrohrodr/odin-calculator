@@ -72,6 +72,10 @@ const equalFunction = () => {
         num2 = display.textContent;
         display.textContent = operate(operator, num1, num2);
     }
+    else {
+        display.textContent = operate(operator, num1, num2);
+        num1 = display.textContent;
+    }
 };
 
 const getOperator = (e) => {
@@ -82,7 +86,9 @@ const getOperator = (e) => {
             display.textContent = "0"
         }
         else {
-            num2 = display.textContent;
+            if (num2 === undefined) {
+                num2 = display.textContent;
+            }
             display.textContent = operate(operator, num1, num2);
             num1 = display.textContent;
             num2 = undefined;
